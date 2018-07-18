@@ -11,4 +11,4 @@ public class DateUtil {
 			return null;
 		return new java.util.Date(t.getTime());
 	}
-}
+}//DateUtil这个日期工具类主要是用于java.util.Date类与java.sql.Timestamp 类的互相转换。
