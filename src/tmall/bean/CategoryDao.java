@@ -12,7 +12,7 @@ import tmall.bean.Category;
 import tmall.util.DBUtil;
 
 public class CategoryDao {
-	public int getTotal() {
+	public int getTotal() {//获取总数
 		int total = 0;
 		try(Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
 		String sql = "select count(*) from category";
@@ -26,7 +26,7 @@ public class CategoryDao {
 		}
 			return total;
 		}
-	public void add(Category bean) {
+	public void add(Category bean) {//增加
 		String sql = "insert into category values(null,?)";
 		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 		
@@ -43,7 +43,7 @@ public class CategoryDao {
 			e.printStackTrace();
 		}
 	}
-	public void update(Category bean) {
+	public void update(Category bean) {//修改
 		String sql = "update category set name = ? where id = ?" ;
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			
@@ -56,7 +56,7 @@ public class CategoryDao {
 		}
 		
 	}
-	public void delete(int id) {
+	public void delete(int id) {//删除
 		try(Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
 			String sql = "delete from Category where id = " + id;
 			s.execute(sql);
@@ -64,7 +64,7 @@ public class CategoryDao {
 			e.printStackTrace();
 		}
 	}
-	public Category get(int id) {
+	public Category get(int id) {//根据id获取
 		Category bean = null ;
 		
 		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
@@ -81,9 +81,10 @@ public class CategoryDao {
 		}
 		return bean;//return bean会return什么?
 	}
-	public List<Category> list(){
+	public List<Category> list(){//分页查询
 		return list(0,Short.MAX_VALUE);//Java有一个名为Short的类，它定义了两个常量来表示短数据类型的最大值和最小值，它们分别是：Short.MAX_VALUE和Short.MIN_VALUE。
-	}
+	}//为什么要限制？ 初始化?
+	
 	public List<Category> list(int start, int count){
 		List<Category> beans = new ArrayList<Category>();
 		String sql = "select * from Category order by id desc limit ?,? ";
