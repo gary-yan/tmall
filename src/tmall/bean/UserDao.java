@@ -61,6 +61,19 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
+	public User get(int id) {
+		User bean = null;
+		
+		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
+			String sql = "select * from user where id = " + id;
+			
+			ResultSet rs = s.executeQuery(sql);
+			if(rs.next()) {
+				bean = new User();
+				String name 
+			}
+		}
+	}
 	}
 	
 	
