@@ -46,7 +46,7 @@ public class Category {
 	private int id;
 	List<Product> products;
 	List<List<Product>> productsByRow;
-
+//test
 	public int getId() {
 		return id;
 	}
