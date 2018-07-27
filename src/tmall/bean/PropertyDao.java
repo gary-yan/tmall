@@ -32,4 +32,22 @@ public class PropertyDao {
 		}
 		return total;
 	}
+	
+	public void add(Property bean) {
+		String sql = "insert into Property values(null,?,?)";
+		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
+			
+			ps.setInt(1, bean.getCategory().getId());
+			ps.setString(2, bean.getName());
+			ps.execute();
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				int id = rs.getInt(1);
+				bean.setId(id);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
