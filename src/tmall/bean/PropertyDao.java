@@ -50,4 +50,17 @@ public class PropertyDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public void update (Property bean) {
+		String sql = "updagte Property set cid = ?, name =? where id =?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
+			
+			ps.setInt(1, bean.getCategory().getId());
+			ps.setString(2, bean.getName() );
+			ps.setInt(3, bean.getId());
+			ps.execute();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
