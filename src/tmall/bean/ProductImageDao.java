@@ -35,7 +35,7 @@ public class ProductImageDao {
 	public void add(ProductImage bean) {
 		String sql = "insert into ProductImage values(null,?,?)";
 		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
-			ps.setInt(1,bean.getProduct().getId());
+			ps.setInt(1,bean.getProduct().getId());//?????
 			ps.setString(2, bean.getType());
 			ps.execute();
 			
@@ -47,5 +47,37 @@ public class ProductImageDao {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public void update(ProductImage bean) {
+		
+	}
+	
+	public void delete(int id) {
+		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
+			String sql = "delete from ProductImage where id = " +id;
+			s.execute(sql);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public ProductImage get(int id) {
+		ProductImage bean = new ProductImage();
+		try(Connection c =DBUtil.getConnection(); Statement s = c.createStatement();){
+			String sql = "select * from ProductImage where id =" +id;
+			ResultSet rs = s.executeQuery(sql);
+			
+			if(rs.next()) {
+				int pid = rs.getInt("pid");
+				String type = rs.getString("type");
+				Product product = new ProductDao().get(pid);
+				bean.setProduct(product);
+				bean.setType(type);
+				bean.setId(id);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bean;
 	}
 }
