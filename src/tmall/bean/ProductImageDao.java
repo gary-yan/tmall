@@ -83,5 +83,27 @@ public class ProductImageDao {
 	public List<ProductImage> list(Product p, String type){
 		return list(p, type,0, Short.MAX_VALUE);
 	}
-	public List<ProductImage>
+	public List<ProductImage> list(Product p, String type, int start, int count){
+		List<ProductImage> beans = new ArrayList<ProductImage>();
+		String sql = "selct * from ProductImage where pid =? and type =? order by id desc limit?, ?";
+		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
+			ps.setInt(1,p.getId());
+			ps.setString(2,type);
+			ps.setInt(3,start);
+			ps.setInt(4,count);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				ProductImage bean = new ProductImage();
+				int id = rs.getInt(1);
+				bean.setProduct(p);
+				bean.setType(type);
+				bean.setId(id);
+				
+				beans.add(bean);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return beans;
+	}
 }
