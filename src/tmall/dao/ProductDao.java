@@ -1,4 +1,6 @@
-package tmall.bean;
+package tmall.dao;
+
+import tmall.bean.Product;
 
 public class ProductDao {
 
